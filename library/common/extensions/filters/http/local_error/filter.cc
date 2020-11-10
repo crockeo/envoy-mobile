@@ -11,14 +11,12 @@ namespace HttpFilters {
 namespace LocalError {
 
 LocalErrorFilterConfig::LocalErrorFilterConfig(
-    const envoymobile::extensions::filters::http::local_error::LocalError& proto_config) {
-}
+    const envoymobile::extensions::filters::http::local_error::LocalError& proto_config) {}
 
-LocalErrorFilter::LocalErrorFilter(LocalErrorFilterConfigSharedPtr config) : config_(config) {
-}
+LocalErrorFilter::LocalErrorFilter(LocalErrorFilterConfigSharedPtr config) : config_(config) {}
 
 Http::FilterHeadersStatus LocalErrorFilter::decodeHeaders(Http::RequestHeaderMap& headers,
-                                                         bool end_stream) {
+                                                          bool end_stream) {
   return Http::FilterHeadersStatus::Continue;
 }
 
@@ -31,7 +29,7 @@ Http::FilterTrailersStatus LocalErrorFilter::decodeTrailers(Http::RequestTrailer
 }
 
 Http::FilterHeadersStatus LocalErrorFilter::encodeHeaders(Http::ResponseHeaderMap& headers,
-                                                         bool end_stream) {
+                                                          bool end_stream) {
   return Http::FilterHeadersStatus::Continue;
 }
 
