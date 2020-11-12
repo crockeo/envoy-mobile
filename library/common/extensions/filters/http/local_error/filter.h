@@ -2,6 +2,8 @@
 
 #include "envoy/http/filter.h"
 
+#include "common/common/logger.h"
+
 #include "extensions/filters/http/common/pass_through_filter.h"
 
 #include "library/common/extensions/filters/http/local_error/filter.pb.h"
@@ -17,6 +19,7 @@ public:
       const envoymobile::extensions::filters::http::local_error::LocalError& proto_config);
 
 private:
+  const bool enabled_;
 };
 
 typedef std::shared_ptr<LocalErrorFilterConfig> LocalErrorFilterConfigSharedPtr;
@@ -24,15 +27,10 @@ typedef std::shared_ptr<LocalErrorFilterConfig> LocalErrorFilterConfigSharedPtr;
 /**
  * Filter to assert expectations on HTTP requests.
  */
-class LocalErrorFilter final : public Http::PassThroughFilter {
+class LocalErrorFilter final : public Http::PassThroughEncoderFilter,
+                               public Logger::Loggable<Logger::Id::filter> {
 public:
   LocalErrorFilter(LocalErrorFilterConfigSharedPtr config);
-
-  // StreamDecoderFilter
-  Http::FilterHeadersStatus decodeHeaders(Http::RequestHeaderMap& headers,
-                                          bool end_stream) override;
-  Http::FilterDataStatus decodeData(Buffer::Instance& data, bool end_stream) override;
-  Http::FilterTrailersStatus decodeTrailers(Http::RequestTrailerMap& trailers) override;
 
   // StreamEncoderFilter
   Http::FilterHeadersStatus encodeHeaders(Http::ResponseHeaderMap& headers,

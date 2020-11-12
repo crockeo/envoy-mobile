@@ -11,33 +11,21 @@ namespace HttpFilters {
 namespace LocalError {
 
 LocalErrorFilterConfig::LocalErrorFilterConfig(
-    const envoymobile::extensions::filters::http::local_error::LocalError& proto_config) {}
+    const envoymobile::extensions::filters::http::local_error::LocalError& proto_config)
+    : enabled_(proto_config.enabled()) {}
 
 LocalErrorFilter::LocalErrorFilter(LocalErrorFilterConfigSharedPtr config) : config_(config) {}
 
-Http::FilterHeadersStatus LocalErrorFilter::decodeHeaders(Http::RequestHeaderMap& headers,
-                                                          bool end_stream) {
+Http::FilterHeadersStatus LocalErrorFilter::encodeHeaders(Http::ResponseHeaderMap& /*headers*/,
+                                                          bool /*end_stream*/) {
   return Http::FilterHeadersStatus::Continue;
 }
 
-Http::FilterDataStatus LocalErrorFilter::decodeData(Buffer::Instance& data, bool end_stream) {
+Http::FilterDataStatus LocalErrorFilter::encodeData(Buffer::Instance& /*data*/, bool /*end_stream*/) {
   return Http::FilterDataStatus::Continue;
 }
 
-Http::FilterTrailersStatus LocalErrorFilter::decodeTrailers(Http::RequestTrailerMap& trailers) {
-  return Http::FilterTrailersStatus::Continue;
-}
-
-Http::FilterHeadersStatus LocalErrorFilter::encodeHeaders(Http::ResponseHeaderMap& headers,
-                                                          bool end_stream) {
-  return Http::FilterHeadersStatus::Continue;
-}
-
-Http::FilterDataStatus LocalErrorFilter::encodeData(Buffer::Instance& data, bool end_stream) {
-  return Http::FilterDataStatus::Continue;
-}
-
-Http::FilterTrailersStatus LocalErrorFilter::encodeTrailers(Http::ResponseTrailerMap& trailers) {
+Http::FilterTrailersStatus LocalErrorFilter::encodeTrailers(Http::ResponseTrailerMap& /*trailers*/) {
   return Http::FilterTrailersStatus::Continue;
 }
 

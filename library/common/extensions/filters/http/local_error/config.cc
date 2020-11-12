@@ -14,7 +14,7 @@ Http::FilterFactoryCb LocalErrorFilterFactory::createFilterFactoryFromProtoTyped
   LocalErrorFilterConfigSharedPtr filter_config =
       std::make_shared<LocalErrorFilterConfig>(proto_config);
   return [filter_config](Http::FilterChainFactoryCallbacks& callbacks) -> void {
-    callbacks.addStreamFilter(std::make_shared<LocalErrorFilter>(filter_config));
+    callbacks.addStreamEncoderFilter(std::make_shared<LocalErrorFilter>(filter_config));
   };
 }
 
