@@ -12,5 +12,7 @@ public:
   const LowerCaseString InternalErrorMessage{"x-internal-error-message"};
 }
 
+using InternalHeaders = ConstSingleton<InternalHeaderValues>;
+
 } // namespace Http
-} // namespace Envo 
+} // namespace Envoy

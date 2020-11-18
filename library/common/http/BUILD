@@ -48,3 +48,13 @@ envoy_cc_library(
         "@envoy//source/common/http:header_map_lib",
     ],
 )
+
+envoy_cc_library(
+    name = "internal_headers_lib"
+    hdrs = ["headers.h"],
+    deps = [
+        "@envoy//include/envoy/http:header_map_interface",
+        "@envoy//source/common/singleton:const_singleton",
+        "@envoy//source/common/singleton:threadsafe_singleton",
+    ],
+)
