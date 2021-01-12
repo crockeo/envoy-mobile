@@ -15,3 +15,6 @@ EXTENSIONS = {
     "envoy.transport_sockets.tls":                    "//source/extensions/transport_sockets/tls:config",
 }
 WINDOWS_EXTENSIONS = {}
+DISABLED_BY_DEFAULT_EXTENSIONS = {
+    "envoy.filters.http.kill_request":                  "//source/extensions/filters/http/kill_request:kill_request_config",
+}
