@@ -2,6 +2,18 @@ load("@pybind11_bazel//:build_defs.bzl", "pybind_extension", "pybind_library")
 
 licenses(["notice"])  # Apache 2
 
+py_library(
+    name = "python",
+    srcs = [
+        "__init__.py",
+        "gevent_engine.py",
+    ],
+    visibility = ["//visibility:public"],
+    data = [
+        ":envoy_engine.so",
+    ],
+)
+
 pybind_library(
     name = "envoy_engine_lib",
     srcs = [
