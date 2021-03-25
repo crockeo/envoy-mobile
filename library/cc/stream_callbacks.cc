@@ -54,9 +54,7 @@ void* c_on_error(envoy_error raw_error, void* context) {
   if (stream_callbacks->on_error.has_value()) {
     EnvoyErrorSharedPtr error = std::make_shared<EnvoyError>();
     error->error_code = raw_error.error_code;
-    // TODO(crockeo): go back and convert from raw_error.message
-    // when doing so won't cause merge conflicts with other PRs.
-    error->message = "";
+    error->message = envoy_data_as_string(raw_error.message);
     error->attempt_count = absl::optional<int>(raw_error.attempt_count);
     auto on_error = stream_callbacks->on_error.value();
     on_error(error);
